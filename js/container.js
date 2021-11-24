@@ -1,16 +1,20 @@
-class CONTAINER {
-    constructor (bannerSize, data, typeOfDevice){
-        this.bannerSize = bannerSize;
-        this.data = data;
-        this.typeOfDevice = typeOfDevice;
+let app, params;
 
-        this.windowSize;
-        this.counts;
-        this.currentBannner;
-        this.isBusy;
-        this.transition = [];
-        this.ui;
+class CONTAINER {
+    constructor (data){
+        params = data;
     };
+
+    //Инициализация сцены
+    init(){
+        app = new PIXI.Application({
+            width: params.canvasSize.width,
+            height: params.canvasSize.height,
+            antialias: true,
+            view: document.getElementById('c')
+        });
+        document.body.appendChild(app.view);
+    }
 
     /*Создание экземпляра класса Banner с командой на отрисовку.
     Конструктор принимает объект data из JSON и управляющие триггеры
@@ -39,7 +43,14 @@ class CONTAINER {
 
 
     //Возвращает размер canvas.
-    getCanvasSize(){};
+    getCanvasSize(){
+        return params.canvasSize;
+    };
+
+     //Возвращает размер canvas.
+     getScreenSize(){
+        return params.screenSize;
+    };
 
 
     //Возвращает массив объектов bannerData. (путь к данным баннера на диске, тип баннера).

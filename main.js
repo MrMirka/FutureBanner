@@ -2,7 +2,6 @@ import {CONTAINER} from './js/container.js';
 import {BANNER} from './js/banner.js';
 import {EFFECT} from './js/effect.js';
 
-let app;
 let params = {
     canvasSize: {
         width: document.getElementById('c').offsetWidth *  window.devicePixelRatio,
@@ -11,31 +10,13 @@ let params = {
     screenSize : {
         width : window.innerWidth,
         height : window.innerHeight,
-    }
+    },
+    deviceType: getDeviceType()
 };
-initScene();
-console.log(getCanvasSize());
-//Запуск экрана
-function initScene(){
-    app = new PIXI.Application({
-        width: params.canvasSize.width,
-        height: params.canvasSize.height,
-        antialias: true,
-        view: document.getElementById('c')
-    });
-    document.body.appendChild(app.view);
-}
-
-//Возвращает размер блока Canvas
-function getCanvasSize(){
-    return params.canvasSize;
-}
 
 
-//Возвращает размер окна устройства
-function getCanvasSize(){
-    return params.screenSize;
-}
+//Инициируем корневой блок
+new CONTAINER(params).init();
 
 
 //Возвращает 0 - десктоп
