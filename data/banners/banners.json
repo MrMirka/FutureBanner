@@ -1,0 +1,28 @@
+[{
+    "id" : 1,
+    "position" :1,
+    "name" : "banner-1",
+    "img" :[
+        "./img/pic_1.png",
+        "./img/pic_2.png",
+        "./img/pic_3.png",
+        "./img/pic_4.png"
+    ],
+    "effect" : 1,
+    "transitionType" : 2,
+    "animationScale" : 0.5
+},
+{
+    "id" : 2,
+    "position" :2,
+    "name" : "banner-2",
+    "img" :[
+        "./img/pic1_1.png",
+        "./img/pic2_2.png",
+        "./img/pic3_3.png",
+        "./img/pic4_4.png"
+    ],
+    "effect" : 12,
+    "transitionType" : 3,
+    "animationScale" : 1.5
+}]
