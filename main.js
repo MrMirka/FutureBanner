@@ -7,8 +7,8 @@ import {EFFECT} from './js/effect.js';
 let params = {
     steps: [0,1,2,3],
     canvasSize: {
-        width: document.getElementById('c').offsetWidth *  window.devicePixelRatio,
-        height: document.getElementById('c').offsetHeight *  window.devicePixelRatio,
+        width: document.getElementById('c').offsetWidth  *  window.devicePixelRatio,
+        height: document.getElementById('c').offsetHeight  *  window.devicePixelRatio,
     },
     screenSize : {
         width : window.innerWidth,
@@ -59,11 +59,7 @@ function initUi(){
     const app = mainBlock.getContext();
     
     app.stage.interactive = true;
-    
-
     app.stage.addChild(left, right);
-    
-
 };
 
 
