@@ -7,8 +7,8 @@ import {EFFECT} from './js/effect.js';
 let params = {
     steps: [0,1,2,3],
     canvasSize: {
-        width: document.getElementById('c').offsetWidth  *  window.devicePixelRatio,
-        height: document.getElementById('c').offsetHeight  *  window.devicePixelRatio,
+        width: document.getElementById('c').offsetWidth,
+        height: document.getElementById('c').offsetHeight,
     },
     screenSize : {
         width : window.innerWidth,
@@ -42,7 +42,7 @@ function initUi(){
     left.interactive = true;
     left.buttonMode = true;
     left.beginFill(0xff0000);
-    left.drawRect(0, 250, 100,100);
+    left.drawRect(0, 125, 50,50);
     left.on("pointerdown", (event) => {
         mainBlock.toLeft();
     });
@@ -54,7 +54,7 @@ function initUi(){
         mainBlock.toRight();
     });
     right.beginFill(0x00ff00);
-    right.drawRect(0, 550, 100,100);
+    right.drawRect(0, 225, 50,50);
 
     const app = mainBlock.getContext();
     

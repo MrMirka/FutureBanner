@@ -1,19 +1,24 @@
+import { smoke } from "../data/effects/smoke.js";
+import { caustic } from "../data/effects/caustic.js";
+let effect, params, value;
 class EFFECT {
-    constructor(v_shader, f_shader, uniforms){
-        this.v_shader = v_shader;
-        this.f_shader = f_shader;
-        this.uniforms = uniforms;
+    constructor(name, data){
+        effect = name;
+        params = data;
     }
 
     //Загрузка данных их внешнего модуля и сохранение значений шейдера и переменных.
-    loadDate(){};
+    getShader(){
+        switch(effect){
+            case 'smoke':
+                value = smoke(params);
+                return new PIXI.Filter(undefined, value.f, value.u);
 
+            case 'caustic':
+                value = caustic(params);
+                return new PIXI.Filter(undefined, value.f, value.u);    
+        };
+    };
 
-    //Отрисовка шейдера
-    createShader(){};
-
-
-    //Удаление шейдера
-    deleteShader(){};
 }
 export {EFFECT};

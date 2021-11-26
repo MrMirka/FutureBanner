@@ -22,14 +22,12 @@ class CONTAINER {
         });
         document.body.appendChild(app.view);
 
-
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
         app.stage.addChild(mainBlock);
 
         getObjFromJson();
 
     }
-
 
     //Удаляет экземпляр класса из очереди на отображение.
     removeBanner(){};
@@ -101,7 +99,7 @@ function getObjFromJson(){
    loader.onload = () => {
     banners = loader.response;
     if(banners != undefined) {
-        playerBanner(banners, 1);
+        playerBanner(banners, 0);
     }
     };
 };
@@ -121,7 +119,6 @@ function playerBanner(banners, position){
 item - объект баннера
 */
 function addBanner(item, params){
-    console.log(item);
     const banner = new BANNER(item, mainBlock,params, app);
     banner.draw();
 };

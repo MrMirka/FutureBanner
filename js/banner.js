@@ -1,5 +1,6 @@
 import {b1Init} from './banners/b1.js';
 import {b2Init} from './banners/b2.js';
+import {b3Init} from './banners/girl1/b3.js';
 let item, block, params,app;
 class BANNER {
     constructor(data, mainBlock, mainData, application){
@@ -18,9 +19,8 @@ class BANNER {
                 b1Init(bannerContainer, params, app);
                 break;
             case 2:
-                b2Init(bannerContainer, params, app);
+                b3Init(bannerContainer, params, app);
                 break;
-
         };
         
         block.addChild(bannerContainer);
