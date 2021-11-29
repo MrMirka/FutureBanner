@@ -41,7 +41,7 @@ function initUi(){
     left.interactive = true;
     left.buttonMode = true;
     left.beginFill(0xff0000);
-    left.drawRect(0, 125, 50,50);
+    left.drawRect(0, params.canvasSize.height /2 - 50, 50,50);
     left.on("pointerdown", (event) => {
         mainBlock.toLeft();
     });
@@ -53,7 +53,7 @@ function initUi(){
         mainBlock.toRight();
     });
     right.beginFill(0x00ff00);
-    right.drawRect(0, 225, 50,50);
+    right.drawRect(params.canvasSize.width - 50, params.canvasSize.height /2 - 50  , 50,50);
 
     const app = mainBlock.getContext();
     
