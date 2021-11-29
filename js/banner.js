@@ -1,6 +1,5 @@
-import {b1Init} from './banners/b1.js';
-import {b2Init} from './banners/b2.js';
-import {b3Init} from './banners/girl1/b3.js';
+import {b1Init} from './banners/girl1/b3.js';
+import {b2Init} from './banners/spine/b4.js';
 let item, block, params,app, texture;
 class BANNER {
     constructor(data, mainBlock, mainData, application, textures){
@@ -17,10 +16,10 @@ class BANNER {
         const bannerContainer = new PIXI.Container();
         switch(item.position){
             case 1:
-                b1Init(bannerContainer, params, app);
+                b2Init(bannerContainer, params, app);
                 break;
             case 2:
-                b3Init(bannerContainer, params, app, texture);
+                b1Init(bannerContainer, params, app, texture);
                 break;
         };
         

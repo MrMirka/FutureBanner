@@ -1,5 +1,5 @@
 import {EFFECT} from '/js/effect.js';
-function b3Init(bannerContainer, params, app, textures){
+function b1Init(bannerContainer, params, app, textures){
 	let count = 0; //Global counter
 
 	//Длинна импровезированной веревки которая тенятся вдоль текстуры
@@ -164,8 +164,8 @@ function b3Init(bannerContainer, params, app, textures){
 	let smokeShader = new EFFECT('smoke', params).getShader();
 	smokeShader.blendMode = PIXI.BLEND_MODES.ADD;
 	var bg = new PIXI.Sprite();
-	bg.width = 1600;
-	bg.height = 547;
+	bg.width = params.canvasSize.width;
+	bg.height = params.canvasSize.height;
 	bg.filters = [smokeShader];
 	bannerContainer.addChild(container);
 	container.addChild(bg);
@@ -282,7 +282,7 @@ function getTextures(name){
 	return value;
 };
 }
-export {b3Init}
+export {b1Init}
 
 
 
