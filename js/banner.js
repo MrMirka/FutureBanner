@@ -1,13 +1,14 @@
 import {b1Init} from './banners/b1.js';
 import {b2Init} from './banners/b2.js';
 import {b3Init} from './banners/girl1/b3.js';
-let item, block, params,app;
+let item, block, params,app, texture;
 class BANNER {
-    constructor(data, mainBlock, mainData, application){
+    constructor(data, mainBlock, mainData, application, textures){
         item = data;
         block = mainBlock;
         params = mainData;
         app = application;
+        texture = textures;
     };
 
     //Добавляет объекты из data в область canvas. Отрисовывает баннер
@@ -19,7 +20,7 @@ class BANNER {
                 b1Init(bannerContainer, params, app);
                 break;
             case 2:
-                b3Init(bannerContainer, params, app);
+                b3Init(bannerContainer, params, app, texture);
                 break;
         };
         

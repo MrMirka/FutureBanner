@@ -19,7 +19,6 @@ let params = {
 
 
 //Инициируем корневой блок
-//const mainBlock = new CONTAINER(params).init();
 const mainBlock = new CONTAINER(params);
 mainBlock.init();
 initUi();

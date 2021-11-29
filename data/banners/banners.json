@@ -3,10 +3,7 @@
     "position" :1,
     "name" : "banner-1",
     "img" :[
-        "./img/pic_1.png",
-        "./img/pic_2.png",
-        "./img/pic_3.png",
-        "./img/pic_4.png"
+       
     ],
     "effect" : 1,
     "transitionType" : 2,
@@ -17,10 +14,26 @@
     "position" :2,
     "name" : "banner-2",
     "img" :[
-        "./img/pic1_1.png",
-        "./img/pic2_2.png",
-        "./img/pic3_3.png",
-        "./img/pic4_4.png"
+        {"background": "./js/banners/girl1/img/background.jpg"},
+        {"blick_glasses":"./js/banners/girl1/img/blick_glasses.png"},
+        {"blick_earring":"./js/banners/girl1/img/blick_earring.png"},
+        {"blick_hair1":"./js/banners/girl1/img/blick_hair1.png"},
+        {"blick_jacket":"./js/banners/girl1/img/blick_jacket.png"},
+        {"blick_jacket2":"./js/banners/girl1/img/blick_jacket2.png"},
+        {"blick_summer":"./js/banners/girl1/img/blick_summer.png"},
+        {"car_ligth":"./js/banners/girl1/img/car_ligth.png"},
+        {"hair":"./js/banners/girl1/img/hair.png"},
+        {"hair2":"./js/banners/girl1/img/hair2.png"},
+        {"hair3":"../js/banners/girl1/img/hair3.png"},
+        {"jaket1":"./js/banners/girl1/img/jaket1.png"},
+        {"jaket2":"./js/banners/girl1/img/jaket2.png"},
+        {"mask_car":"./js/banners/girl1/img/mask_car.png"},
+        {"mask_floor":"./js/banners/girl1/img/mask_floor.png"},
+        {"open_O":"./js/banners/girl1/img/open_O.png"},
+        {"palm1":"./js/banners/girl1/img/palm1.png"},
+        {"palm2":"./js/banners/girl1/img/palm2.png"},
+        {"woman":"./js/banners/girl1/img/woman.png"}
+        
     ],
     "effect" : 12,
     "transitionType" : 3,

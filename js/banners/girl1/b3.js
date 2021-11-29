@@ -1,5 +1,5 @@
 import {EFFECT} from '/js/effect.js';
-function b3Init(bannerContainer, params, app){
+function b3Init(bannerContainer, params, app, textures){
 	let count = 0; //Global counter
 
 	//Длинна импровезированной веревки которая тенятся вдоль текстуры
@@ -22,9 +22,10 @@ function b3Init(bannerContainer, params, app){
 	const palm2Points = [];
 	const floorPoint = [];
 
+	
 
 	//CAR LIGTH
-	let carLigth = PIXI.Sprite.from('./js/banners/girl1/img/car_ligth.png');
+	let carLigth = PIXI.Sprite.from(getTextures('car_ligth'));
 	carLigth.position.set(1238,153);
 	carLigth.blendMode = PIXI.BLEND_MODES.SCREEN;
 	bannerContainer.addChild(carLigth);
@@ -46,11 +47,11 @@ function b3Init(bannerContainer, params, app){
 	}
 
 
-	let background = PIXI.Sprite.from('./js/banners/girl1/img/background.jpg');
+	let background = PIXI.Sprite.from(getTextures('background'));
 	bannerContainer.addChild(background);
 
 	//Car effects
-	let maskCar = PIXI.Sprite.from('./js/banners/girl1/img/mask_car.png');
+	let maskCar = PIXI.Sprite.from(getTextures('mask_car'));
 	maskCar.position.set(1007,188);
 	const carBlur = new PIXI.filters.BlurFilter();
 	const carFlark = new PIXI.Graphics();
@@ -64,53 +65,53 @@ function b3Init(bannerContainer, params, app){
 	carFlark.mask = maskCar;
 	bannerContainer.addChild(maskCar, carFlark);
 
-	const ropeHair1 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/hair.png'), hair1Points);
+	const ropeHair1 = new PIXI.SimpleRope(getTextures('hair'), hair1Points);
 	putToStage(ropeHair1, 1270, 13,  Math.PI*0.5);
 
-	const ropeHair2 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/hair2.png'), hair2Points);
+	const ropeHair2 = new PIXI.SimpleRope(getTextures('hair2'), hair2Points);
 	putToStage(ropeHair2, 1270, 12,  2.8);
 
-	const ropeHair3 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/hair3.png'), hair3Points);
+	const ropeHair3 = new PIXI.SimpleRope(getTextures('hair3'), hair3Points);
 	putToStage(ropeHair3, 1134, 55,  Math.PI*0.5);
 
-	const ropeJaket1 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/jaket1.png'), jaket1Points);
+	const ropeJaket1 = new PIXI.SimpleRope(getTextures('jaket1'), jaket1Points);
 	putToStage(ropeJaket1, 1310, 193,  Math.PI*0.5);
 
-	const ropeJaket2 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/jaket2.png'), jaket2Points);
+	const ropeJaket2 = new PIXI.SimpleRope(getTextures('jaket2'), jaket2Points);
 	putToStage(ropeJaket2, 1082, 167,  Math.PI*0.5);
 
-	const ropePalm1 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/palm1.png'), palm1Points);
+	const ropePalm1 = new PIXI.SimpleRope(getTextures('palm1'), palm1Points);
 	putToStage(ropePalm1, 450, 421,  Math.PI*-0.47);
 
-	const ropePalm2 = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/palm2.png'), palm2Points);
+	const ropePalm2 = new PIXI.SimpleRope(getTextures('palm2'), palm2Points);
 	putToStage(ropePalm2, 550, 385,  Math.PI*-0.47);
 
 
-	let woman = PIXI.Sprite.from('./js/banners/girl1/img/woman.png');
+	let woman = PIXI.Sprite.from(getTextures('woman'));
 	woman.x = 909;
 	bannerContainer.addChild(woman);
 
 
 	//Woman blick
-	let blickGlass = PIXI.Sprite.from('./js/banners/girl1/img/blick_glasses.png');
+	let blickGlass = PIXI.Sprite.from(getTextures('blick_glasses'));
 	blickGlass.position.set(1136, 48);
 	blickGlass.blendMode = PIXI.BLEND_MODES.SCREEN;
 	bannerContainer.addChild(blickGlass);
 
-	let blickEarring = PIXI.Sprite.from('./js/banners/girl1/img/blick_earring.png');
+	let blickEarring = PIXI.Sprite.from(getTextures('blick_earring'));
 	blickEarring.position.set(1206, 110);
 	blickEarring.blendMode = PIXI.BLEND_MODES.SCREEN;
 	bannerContainer.addChild(blickEarring);
 
-	let blickHair1 = PIXI.Sprite.from('./js/banners/girl1/img/blick_hair1.png');
+	let blickHair1 = PIXI.Sprite.from(getTextures('blick_hair1'));
 	blickHair1.position.set(1205, 5);
 	blickHair1.blendMode = PIXI.BLEND_MODES.SCREEN;
 	bannerContainer.addChild(blickHair1);
 
 
 	//Jacket blick
-	let blickJacket1 = PIXI.Sprite.from('./js/banners/girl1/img/blick_jacket.png');
-	let blickJacket2 = PIXI.Sprite.from('./js/banners/girl1/img/blick_jacket2.png');
+	let blickJacket1 = PIXI.Sprite.from(getTextures('blick_jacket'));
+	let blickJacket2 = PIXI.Sprite.from(getTextures('blick_jacket2'));
 	blickJacket2.position.set(1222, 207);
 	blickJacket2.blendMode = PIXI.BLEND_MODES.SCREEN;
 	bannerContainer.addChild(blickJacket2);
@@ -120,25 +121,25 @@ function b3Init(bannerContainer, params, app){
 
 
 	//FONTS letter glass
-	let openO = PIXI.Sprite.from('./js/banners/girl1/img/open_O.png');
+	let openO = PIXI.Sprite.from(getTextures('open_O'));
 	openO.position.set(1510, 46);
 	openO.blendMode = PIXI.BLEND_MODES.MULTIPLY;
 	bannerContainer.addChild(openO);
 
-	let summer = PIXI.Sprite.from('./js/banners/girl1/img/blick_summer.png');
+	let summer = PIXI.Sprite.from(getTextures('blick_summer'));
 	summer.position.set(569, 109);
 	summer.blendMode = PIXI.BLEND_MODES.ADD;
 	bannerContainer.addChild(summer);
 
 
 	//MASK
-	let mask = PIXI.Sprite.from('./js/banners/girl1/img/mask_floor.png');
+	let mask = PIXI.Sprite.from(getTextures('mask_floor'));
 	mask.position.set(267,350);
 	bannerContainer.addChild(mask);
 
 
 	//Caustic shader
-	const floor = new PIXI.SimpleRope(PIXI.Texture.from('./js/banners/girl1/img/background.jpg'), floorPoint);
+	const floor = new PIXI.SimpleRope(getTextures('background'), floorPoint);
 	let containerWater = new PIXI.Container();
 	let containerFloor = new PIXI.Container();
 	let causticShader = new EFFECT('caustic', params).getShader();
@@ -251,10 +252,10 @@ function b3Init(bannerContainer, params, app){
 		
 	});
 
-	//Return time delay
-	function getBlick (){
-		return Math.sin(deltaTime) > Math.random();
-	}
+//Return time delay
+function getBlick (){
+	return Math.sin(deltaTime) > Math.random();
+}
 
 //Put object to stage
 //o - object
@@ -267,6 +268,18 @@ function putToStage(o,x,y,a){
 	if(a != undefined)
 		o.rotation = a;
 		bannerContainer.addChild(o);
+};
+
+
+//Забираем текстуры из общего массива
+function getTextures(name){
+	let value;
+	textures.forEach(item => {
+		if(item.textureCacheIds[0] === name){
+			value = item;
+		} 
+	});
+	return value;
 };
 }
 export {b3Init}
