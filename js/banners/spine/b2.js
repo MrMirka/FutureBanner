@@ -1,4 +1,4 @@
-import {EFFECT} from '../js/effect.js';
+//import {EFFECT} from '../js/effect.js';
 function b2Init(bannerContainer, params, app, textures){
     app.loader.destroy(); //Нужно очистить ресурсы перед повторным запуском (временное решение)
 	app.loader
