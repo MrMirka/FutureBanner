@@ -30,7 +30,7 @@
         {"car_ligth":"./js/banners/girl1/img/car_ligth.png"},
         {"hair":"./js/banners/girl1/img/hair.png"},
         {"hair2":"./js/banners/girl1/img/hair2.png"},
-        {"hair3":"../js/banners/girl1/img/hair3.png"},
+        {"hair3":"./js/banners/girl1/img/hair3.png"},
         {"jaket1":"./js/banners/girl1/img/jaket1.png"},
         {"jaket2":"./js/banners/girl1/img/jaket2.png"},
         {"mask_car":"./js/banners/girl1/img/mask_car.png"},
