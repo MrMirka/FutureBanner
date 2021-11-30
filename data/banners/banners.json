@@ -1,7 +1,10 @@
 [{
     "id" : 1,
+    "type": "spine",
     "position" :1,
     "name" : "banner-1",
+    "caption" : "SpineTest",
+    "btn": "Жми на 2!",
     "img" :[
        
     ],
@@ -11,8 +14,11 @@
 },
 {
     "id" : 2,
+    "type": "base",
     "position" :2,
     "name" : "banner-2",
+    "caption" : "RetroStyle",
+    "btn": "Жми на 1!",
     "img" :[
         {"background": "./js/banners/girl1/img/background.jpg"},
         {"blick_glasses":"./js/banners/girl1/img/blick_glasses.png"},
@@ -32,8 +38,7 @@
         {"open_O":"./js/banners/girl1/img/open_O.png"},
         {"palm1":"./js/banners/girl1/img/palm1.png"},
         {"palm2":"./js/banners/girl1/img/palm2.png"},
-        {"woman":"./js/banners/girl1/img/woman.png"}
-        
+        {"woman":"./js/banners/girl1/img/woman.png"}  
     ],
     "effect" : 12,
     "transitionType" : 3,

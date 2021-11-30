@@ -1,5 +1,5 @@
-import {b1Init} from './banners/girl1/b3.js';
-import {b2Init} from './banners/spine/b4.js';
+import {b1Init} from './banners/girl1/b1.js';
+import {b2Init} from './banners/spine/b2.js';
 let item, block, params,app, texture;
 class BANNER {
     constructor(data, mainBlock, mainData, application, textures){
@@ -17,9 +17,11 @@ class BANNER {
         switch(item.position){
             case 1:
                 b2Init(bannerContainer, params, app);
+                textUpdate();
                 break;
             case 2:
                 b1Init(bannerContainer, params, app, texture);
+                textUpdate();
                 break;
         };
         
@@ -43,4 +45,15 @@ class BANNER {
     //Добавляет в сцену экземпляр класса Effects. 
     addEfect(){};
 }
+
+
+
+//Устанавливаем подписи к баннерам
+function textUpdate(){
+    let caption = document.getElementById('caption1');
+    let button = document.getElementById('btn');
+    caption.innerHTML = item.caption;
+    button.innerHTML = item.btn;
+}
+
 export {BANNER};
