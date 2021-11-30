@@ -1,4 +1,4 @@
-import {EFFECT} from "/js/effect.js";
+import {EFFECT} from "https://mrmirka.github.io/FutureBanner/js/effect.js";
 function b1Init(bannerContainer, params, app, textures){
 	let count = 0; //Global counter
 
