@@ -1,4 +1,4 @@
-import {EFFECT} from './js/effect.js';
+import {EFFECT} from 'js/effect.js';
 function b1Init(bannerContainer, params, app, textures){
 	let count = 0; //Global counter
 
