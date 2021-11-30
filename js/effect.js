@@ -1,5 +1,5 @@
-import { smoke } from "../data/effects/smoke.js";
-import { caustic } from "../data/effects/caustic.js";
+import { smoke } from "/data/effects/smoke.js";
+import { caustic } from "/data/effects/caustic.js";
 let effect, params, value;
 class EFFECT {
     constructor(name, data){
