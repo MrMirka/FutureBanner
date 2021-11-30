@@ -1,31 +1,30 @@
 import {b1Init} from './banners/girl1/b1.js';
 import {b2Init} from './banners/spine/b2.js';
-let item, block, params,app, texture;
 class BANNER {
-    constructor(data, mainBlock, mainData, application, textures){
-        item = data;
-        block = mainBlock;
-        params = mainData;
-        app = application;
-        texture = textures;
+    constructor(item, mainBlock, params, app, textures){
+        this._item = item;
+        this._mainBlock = mainBlock;
+        this._params = params;
+        this._app = app;
+        this._texture = textures;
     };
 
     //Добавляет объекты из data в область canvas. Отрисовывает баннер
     draw(){
-        block.removeChildren(); //Очищаем контейнер от предыдущего баннера
+        this._mainBlock.removeChildren(); //Очищаем контейнер от предыдущего баннера
         const bannerContainer = new PIXI.Container();
-        switch(item.position){
+        switch(this._item.position){
             case 1:
-                b2Init(bannerContainer, params, app);
-                textUpdate();
+                b2Init(bannerContainer, this._params, this._app);
+                textUpdate(this._item);
                 break;
             case 2:
-                b1Init(bannerContainer, params, app, texture);
-                textUpdate();
+                b1Init(bannerContainer, this._params, this._app, this._texture);
+                textUpdate(this._item);
                 break;
         };
         
-        block.addChild(bannerContainer);
+        this._mainBlock.addChild(bannerContainer);
         
     };
 
@@ -49,7 +48,7 @@ class BANNER {
 
 
 //Устанавливаем подписи к баннерам
-function textUpdate(){
+function textUpdate(item){
     let caption = document.getElementById('caption1');
     let button = document.getElementById('btn');
     caption.innerHTML = item.caption;

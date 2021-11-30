@@ -1,23 +1,23 @@
 import { BANNER } from './banner.js';
 import {getJSON} from './json_manager.js';
-let app, params;
+let app;
 let banners; //Массив данных из JSON файла
 let bannerUrl = './data/banners/banners.json'; //Путь к JSON файлу с описанием баннеров
 let currentPosition = 0; //По умолчанию стартует первый баннер в очереди
 let textures = []; //Хранилище текстур для всех баннеров
 
-let mainBlock;
+let mainBlock; //Корневой контеинер
 
 class CONTAINER {
-    constructor (data){
-        params = data;
+    constructor (params){
+        this._params = params;
     };
 
     //Инициализация сцены
     init(){
         app = new PIXI.Application({
-            width: params.canvasSize.width,
-            height: params.canvasSize.height,
+            width: this._params.canvasSize.width,
+            height: this._params.canvasSize.height,
             antialias: true,
             view: document.getElementById('c')
         });
@@ -26,7 +26,7 @@ class CONTAINER {
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
         app.stage.addChild(mainBlock);
 
-        getObjFromJson();
+        getObjFromJson(this._params); //Забираем данные банеров и отправляем на инициализацию
 
     }
 
@@ -47,7 +47,7 @@ class CONTAINER {
     //Сменить банер на предыдущий в очереди.
     toLeft(){
         if(banners != undefined) {
-            playerBanner(banners, 1);
+            playerBanner(banners, 1, this._params);
         }
     };
 
@@ -55,19 +55,19 @@ class CONTAINER {
     //Сменить банер напоследующий в очереди.
     toRight(){
         if(banners != undefined) {
-            playerBanner(banners, 0);
+            playerBanner(banners, 0, this._params);
         }
     };
 
 
     //Возвращает размер canvas.
     getCanvasSize(){
-        return params.canvasSize;
+        return this._params.canvasSize;
     };
 
      //Возвращает размер canvas.
      getScreenSize(){
-        return params.screenSize;
+        return this._params.screenSize;
     };
 
 
@@ -95,13 +95,12 @@ class CONTAINER {
 
 //Возвращает массив объектов bannerData. (путь к данным баннера на диске, тип баннера).
 //Инициируем отрисовку банеров
-function getObjFromJson(){
+function getObjFromJson(params){
    let loader = getJSON(bannerUrl);
    loader.onload = () => {
     banners = loader.response;
     if(banners != undefined) {
-        loaderTextures(banners);
-        //playerBanner(banners, 0);
+        loaderTextures(banners, params);
     }
     };
 };
@@ -110,7 +109,7 @@ function getObjFromJson(){
 //Выбираем баннер из массива данных и отрисовываем его
 //banners - массив баннеров
 //position - позиция в массиве которая будет отрисованна
-function playerBanner(banners, position){
+function playerBanner(banners, position, params){
     currentPosition = position;
     addBanner(banners[position],params);
 }
@@ -121,14 +120,14 @@ function playerBanner(banners, position){
 item - объект баннера
 */
 function addBanner(item, params){
-    const banner = new BANNER(item, mainBlock,params, app, textures);
+    const banner = new BANNER(item, mainBlock, params, app, textures);
     banner.draw();
 };
 
 
 
-//Загружаем картинки и массив текстур
-function loaderTextures(bannerItem) {
+//Загружаем картинки в массив текстур
+function loaderTextures(bannerItem, params) {
     const loader = new PIXI.Loader();
     for (let i = 0; i < bannerItem.length; i++) {
        for(let j = 0; j<bannerItem[i].img.length; j++){
@@ -138,11 +137,10 @@ function loaderTextures(bannerItem) {
     }
     loader.load((loader, resources) => {
         for(let i = 0; i < Object.keys(resources).length; i++) {
-            let name = Object.keys(resources)[i];
             let value = Object.values(resources)[i].texture;
             textures.push(value);
         }
-        playerBanner(bannerItem, 1);
+        playerBanner(bannerItem, 1, params);
     });
 }
 
