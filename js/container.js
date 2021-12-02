@@ -3,10 +3,11 @@ import {getJSON} from './json_manager.js';
 let app;
 let banners; //Массив данных из JSON файла
 let bannerUrl = './data/banners/banners.json'; //Путь к JSON файлу с описанием баннеров
-let currentPosition = 0; //По умолчанию стартует первый баннер в очереди
+let currentBanner = 1; //По умолчанию стартует первый баннер в очереди
 let textures = []; //Хранилище текстур для всех баннеров
 
 let mainBlock; //Корневой контеинер
+
 
 class CONTAINER {
     constructor (params){
@@ -27,7 +28,6 @@ class CONTAINER {
         app.stage.addChild(mainBlock);
 
         getObjFromJson(this._params); //Забираем данные банеров и отправляем на инициализацию
-
     }
 
     //Удаляет экземпляр класса из очереди на отображение.
@@ -36,7 +36,7 @@ class CONTAINER {
 
     //Возвращает активный баннер, позицию в очереди, а так же его тип.
     getInfo(){
-        return banners[currentPosition];
+        return banners[currentBanner];
     };
 
 
@@ -47,7 +47,7 @@ class CONTAINER {
     //Сменить банер на предыдущий в очереди.
     toLeft(){
         if(banners != undefined) {
-            playerBanner(banners, 1, this._params);
+            shiftBanner(-1, this._params);
         }
     };
 
@@ -55,7 +55,7 @@ class CONTAINER {
     //Сменить банер напоследующий в очереди.
     toRight(){
         if(banners != undefined) {
-            playerBanner(banners, 0, this._params);
+            shiftBanner(1, this._params);
         }
     };
 
@@ -109,9 +109,8 @@ function getObjFromJson(params){
 //Выбираем баннер из массива данных и отрисовываем его
 //banners - массив баннеров
 //position - позиция в массиве которая будет отрисованна
-function playerBanner(banners, position, params){
-    currentPosition = position;
-    addBanner(banners[position],params);
+function playerBanner(banner, params){
+    addBanner(banner,params);
 }
 
  /*Создание экземпляра класса Banner с командой на отрисовку.
@@ -121,7 +120,7 @@ item - объект баннера
 */
 function addBanner(item, params){
     const banner = new BANNER(item, mainBlock, params, app, textures);
-    banner.draw();
+    currentBanner = banner.draw();
 };
 
 
@@ -140,8 +139,39 @@ function loaderTextures(bannerItem, params) {
             let value = Object.values(resources)[i].texture;
             textures.push(value);
         }
-        playerBanner(bannerItem, 1, params);
+        playerBanner(getBannerByPosition(1), params);
     });
+}
+
+
+//Возвращет позицию банера в очереди по его ID
+function findBannerInQueue(id, params){
+    let queue = params.steps;
+    let index = queue.findIndex((element) => element === id);
+    return index;
+}
+
+
+
+//Возвращеет элемент баннера по значению position
+function getBannerByPosition(pos) {
+    let banner = -1;
+    banners.forEach(item => {
+        if(item.position === pos){
+            banner = item;
+        }
+    });
+    return banner;
+}
+
+
+
+//Сдвиг баннера на позицию влево или вправо
+function shiftBanner(shift, params){
+    let current = findBannerInQueue(currentBanner, params) + 1;
+    let banner = getBannerByPosition(current+shift);
+    if(banner != -1)
+    playerBanner(banner, params);
 }
 
 

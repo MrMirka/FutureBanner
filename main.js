@@ -1,11 +1,7 @@
 import {CONTAINER} from './js/container.js';
-import {BANNER} from './js/banner.js';
-import {EFFECT} from './js/effect.js';
-
-
 
 let params = {
-    steps: [0,1,2,3],
+    steps: [1,2],
     canvasSize: {
         width: document.getElementById('c').offsetWidth,
         height: document.getElementById('c').offsetHeight,

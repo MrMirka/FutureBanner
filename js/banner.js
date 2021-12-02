@@ -15,17 +15,18 @@ class BANNER {
         const bannerContainer = new PIXI.Container();
         switch(this._item.position){
             case 1:
-                b2Init(bannerContainer, this._params, this._app);
+                b1Init(bannerContainer, this._params, this._app, this._texture);
                 textUpdate(this._item);
                 break;
             case 2:
-                b1Init(bannerContainer, this._params, this._app, this._texture);
+                b2Init(bannerContainer, this._params, this._app, this._texture);
                 textUpdate(this._item);
                 break;
         };
         
         this._mainBlock.addChild(bannerContainer);
         
+        return this._item.position;
     };
 
 
