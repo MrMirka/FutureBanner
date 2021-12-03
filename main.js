@@ -1,7 +1,7 @@
 import {CONTAINER} from './js/container.js';
 
 let params = {
-    steps: [1,2],
+    steps: [2,1],
     canvasSize: {
         width: document.getElementById('c').offsetWidth,
         height: document.getElementById('c').offsetHeight,

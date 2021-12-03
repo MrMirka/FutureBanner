@@ -3,7 +3,7 @@ import {getJSON} from './json_manager.js';
 let app;
 let banners; //Массив данных из JSON файла
 let bannerUrl = './data/banners/banners.json'; //Путь к JSON файлу с описанием баннеров
-let currentBanner = 1; //По умолчанию стартует первый баннер в очереди
+let currentBanner = 0; //По умолчанию стартует первый баннер в очереди
 let textures = []; //Хранилище текстур для всех баннеров
 
 let mainBlock; //Корневой контеинер
@@ -12,6 +12,7 @@ let mainBlock; //Корневой контеинер
 class CONTAINER {
     constructor (params){
         this._params = params;
+        currentBanner = this._params.steps[0];
     };
 
     //Инициализация сцены
@@ -139,7 +140,7 @@ function loaderTextures(bannerItem, params) {
             let value = Object.values(resources)[i].texture;
             textures.push(value);
         }
-        playerBanner(getBannerByPosition(1), params);
+        playerBanner(getBannerByPosition(currentBanner), params);
     });
 }
 
@@ -168,10 +169,12 @@ function getBannerByPosition(pos) {
 
 //Сдвиг баннера на позицию влево или вправо
 function shiftBanner(shift, params){
-    let current = findBannerInQueue(currentBanner, params) + 1;
-    let banner = getBannerByPosition(current+shift);
-    if(banner != -1)
-    playerBanner(banner, params);
+    let currentInQueue = findBannerInQueue(currentBanner, params);
+    let nextPosition = params.steps[currentInQueue + shift];
+    if(nextPosition != undefined) {
+        let banner = getBannerByPosition(nextPosition);
+        playerBanner(banner, params);
+    }
 }
 
 
