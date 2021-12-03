@@ -27,6 +27,7 @@ function b1Init(bannerContainer, params, app, textures){
 	let carLigth = PIXI.Sprite.from(getTextures('car_ligth'));
 	carLigth.position.set(1238,153);
 	carLigth.blendMode = PIXI.BLEND_MODES.SCREEN;
+	bannerContainer.scale.set(params.scaleFactor, params.scaleFactor); //Маштабирует изображения при изменении исходного размера контейнере
 	bannerContainer.addChild(carLigth);
 
 
@@ -144,8 +145,8 @@ function b1Init(bannerContainer, params, app, textures){
 	let causticShader = new EFFECT('caustic', params).getShader();
 	causticShader.blendMode = PIXI.BLEND_MODES.SCREEN;
 	var water = new PIXI.Sprite();
-	water.width = params.canvasSize.width;
-	water.height = params.canvasSize.height;
+	water.width = params.canvasSize.width * devicePixelRatio;
+	water.height = params.canvasSize.height * devicePixelRatio;
 	water.filters = [causticShader];
 	water.mask = mask;
 	containerWater.mask = mask;
@@ -163,8 +164,8 @@ function b1Init(bannerContainer, params, app, textures){
 	let smokeShader = new EFFECT('smoke', params).getShader();
 	smokeShader.blendMode = PIXI.BLEND_MODES.ADD;
 	var bg = new PIXI.Sprite();
-	bg.width = params.canvasSize.width;
-	bg.height = params.canvasSize.height;
+	bg.width = params.canvasSize.width  * devicePixelRatio;
+	bg.height = params.canvasSize.height * devicePixelRatio;
 	bg.filters = [smokeShader];
 	bannerContainer.addChild(container);
 	container.addChild(bg);

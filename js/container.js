@@ -26,7 +26,7 @@ class CONTAINER {
         document.body.appendChild(app.view);
 
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
-        mainBlock.scale.set(this._params.scaleFactor, this._params.scaleFactor); //Для ресайза
+        //mainBlock.scale.set(this._params.scaleFactor, this._params.scaleFactor); //Маштабирует изображения при изменении исходного размера контейнере
         
         app.stage.addChild(mainBlock);
 
