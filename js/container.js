@@ -20,14 +20,15 @@ class CONTAINER {
         app = new PIXI.Application({
             width: this._params.canvasSize.width,
             height: this._params.canvasSize.height,
-            autoDensity: true,
             antialias: true,
             view: document.getElementById('c')
         });
         document.body.appendChild(app.view);
 
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
-    
+        console.log(this._params.factor);
+        mainBlock.scale.set(this._params.factor, this._params.factor); //Для ресайза
+        
         app.stage.addChild(mainBlock);
 
         getObjFromJson(this._params); //Забираем данные банеров и отправляем на инициализацию

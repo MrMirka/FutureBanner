@@ -23,7 +23,6 @@ function b1Init(bannerContainer, params, app, textures){
 	const floorPoint = [];
 
 	
-
 	//CAR LIGTH
 	let carLigth = PIXI.Sprite.from(getTextures('car_ligth'));
 	carLigth.position.set(1238,153);
