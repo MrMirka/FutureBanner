@@ -1,9 +1,9 @@
 import { BANNER } from './banner.js';
-import {getJSON} from './json_manager.js';
+import { getJSON } from './json_manager.js';
 let app;
 let banners; //Массив данных из JSON файла
 let bannerUrl = './data/banners/banners.json'; //Путь к JSON файлу с описанием баннеров
-let currentBanner = 0; //По умолчанию стартует первый баннер в очереди
+let currentBanner; //По умолчанию стартует первый баннер в очереди
 let textures = []; //Хранилище текстур для всех баннеров
 
 let mainBlock; //Корневой контеинер
@@ -20,19 +20,19 @@ class CONTAINER {
         app = new PIXI.Application({
             width: this._params.canvasSize.width,
             height: this._params.canvasSize.height,
+            autoDensity: true,
             antialias: true,
             view: document.getElementById('c')
         });
         document.body.appendChild(app.view);
 
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
+    
         app.stage.addChild(mainBlock);
 
         getObjFromJson(this._params); //Забираем данные банеров и отправляем на инициализацию
     }
 
-    //Удаляет экземпляр класса из очереди на отображение.
-    removeBanner(){};
 
 
     //Возвращает активный баннер, позицию в очереди, а так же его тип.
@@ -40,9 +40,6 @@ class CONTAINER {
         return banners[currentBanner];
     };
 
-
-    //Изменяет позицию баннера в очереди.
-    shiftPosition(){};
 
 
     //Сменить банер на предыдущий в очереди.
@@ -130,7 +127,7 @@ function addBanner(item, params){
 function loaderTextures(bannerItem, params) {
     const loader = new PIXI.Loader();
     for (let i = 0; i < bannerItem.length; i++) {
-       for(let j = 0; j<bannerItem[i].img.length; j++){
+       for(let j = 0; j < bannerItem[i].img.length; j++){
            let value = bannerItem[i].img[j];
             loader.add(Object.keys(value)[0], Object.values(value)[0]);
        }

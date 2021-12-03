@@ -1,7 +1,7 @@
 import {CONTAINER} from './js/container.js';
 
 let params = {
-    steps: [2,1],
+    steps: [1,2], //Порядок баннеров в очереди на отображение
     canvasSize: {
         width: document.getElementById('c').offsetWidth,
         height: document.getElementById('c').offsetHeight,
