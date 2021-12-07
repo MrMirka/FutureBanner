@@ -15,7 +15,7 @@ let shift = 1; //Значение альфы для перехода между 
 let filter; //Фильтр-шейдр области перехода между баннерами
 let callback; //Возвращает значение когда транзишн перехода затемнен
 
-let clickArrow = true; // true - стрелка разблокированна, false - заблокированна
+let btnArrow;
 
 
 class CONTAINER {
@@ -202,10 +202,9 @@ function shiftBanner(shift, button){
         let banner = getBannerByPosition(nextPosition);
         button.interactive = false;
         easyIn(function fn(shift){
-            button.interactive = true;
-            easyOut();
-            clickArrow = true;
+            easyOut(button);
             playerBanner(banner, parameters);  
+            button.interactive = true;
         });        
     }
 }
@@ -214,19 +213,18 @@ function shiftBanner(shift, button){
 
 //Прозрачность от 1 к 0
 function easyOut(){
+    console.log(shift);
     filter.uniforms.shift = shift;
     shift -= 0.01;
     if(shift > 0) {
         requestAnimationFrame(easyOut);  
-    }else if(shift <= 0){
-        clickArrow = true;
     }
 }
 
 
 //Прозрачность от 0 к 1
  function easyIn(fn){
-    clickArrow = false;
+    console.log(shift);
     if(callback === undefined) 
     callback = fn;
     filter.uniforms.shift = shift;
@@ -234,7 +232,6 @@ function easyOut(){
     if(shift < 1){
         requestAnimationFrame(easyIn);
     }else if(shift >= 1) {
-        clickArrow = true;
         callback(shift); 
         callback = undefined; //Обнуление калбека (иначе будет показывать тот же баннер при клике на стрелку)
     }
