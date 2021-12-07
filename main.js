@@ -43,14 +43,14 @@ function initUi(){
     left.beginFill(0xff0000);
     left.drawRect(0, params.canvasSize.height /2 - 50, 50,50);
     left.on("pointerdown", (event) => {
-        mainBlock.toLeft();
+        mainBlock.toLeft(left);
     });
 
     const right = new PIXI.Graphics();
     right.interactive = true;
     right.buttonMode = true;
     right.on("pointerdown", (event) => {
-        mainBlock.toRight();
+        mainBlock.toRight(right);
     });
     right.beginFill(0x00ff00);
     right.drawRect(params.canvasSize.width - 50, params.canvasSize.height /2 - 50  , 50,50);

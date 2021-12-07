@@ -60,19 +60,17 @@ class CONTAINER {
 
 
     //Сменить банер на предыдущий в очереди.
-    toLeft(){
-        console.log(clickArrow);
-        if(banners != undefined & clickArrow) {
-            shiftBanner(-1);
+    toLeft(button){
+        if(banners != undefined) {
+            shiftBanner(-1, button);
         }
     };
 
 
     //Сменить банер напоследующий в очереди.
-    toRight(){
-        console.log(clickArrow);
-        if(banners != undefined & clickArrow) {
-            shiftBanner(1);
+    toRight(button){
+        if(banners != undefined) {
+            shiftBanner(1, button);
         }
     };
 
@@ -197,22 +195,18 @@ function getBannerByPosition(pos) {
 
 
 //Сдвиг баннера на позицию влево или вправо
-function shiftBanner(shift){
-    clickArrow = false;
+function shiftBanner(shift, button){
     let currentInQueue = findBannerInQueue(currentBanner, parameters);
     let nextPosition = parameters.steps[currentInQueue + shift];
     if(nextPosition != undefined) {
         let banner = getBannerByPosition(nextPosition);
+        button.interactive = false;
         easyIn(function fn(shift){
+            button.interactive = true;
             easyOut();
-            console.log('set true');
             clickArrow = true;
-            playerBanner(banner, parameters);
-            
+            playerBanner(banner, parameters);  
         });        
-        
-    }else{
-        clickArrow = true;
     }
 }
 
@@ -222,13 +216,17 @@ function shiftBanner(shift){
 function easyOut(){
     filter.uniforms.shift = shift;
     shift -= 0.01;
-    if(shift > 0) 
-    requestAnimationFrame(easyOut);  
+    if(shift > 0) {
+        requestAnimationFrame(easyOut);  
+    }else if(shift <= 0){
+        clickArrow = true;
+    }
 }
 
 
 //Прозрачность от 0 к 1
  function easyIn(fn){
+    clickArrow = false;
     if(callback === undefined) 
     callback = fn;
     filter.uniforms.shift = shift;
