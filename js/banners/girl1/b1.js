@@ -179,6 +179,8 @@ function b1Init(bannerContainer, params, app, textures){
 		count += 0.1;
 		deltaTime += shift;
 
+		//params.filter.uniforms.shift = Math.abs(Math.sin(deltaTime));
+
 		smokeShader.uniforms.time += 0.01;
 		causticShader.uniforms.time += 0.011;
 		

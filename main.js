@@ -2,6 +2,7 @@ import {CONTAINER} from './js/container.js';
 
 let params = {
     steps: [1,2], //Порядок баннеров в очереди на отображение
+    filter: undefined,
     scaleFactor: (document.getElementById('c').offsetWidth) / 1600, //Коэфициент маштабирования, 1600 - исходное изображения бекграунда в пикселях
     canvasSize: {
         width: document.getElementById('c').offsetWidth ,
@@ -18,6 +19,8 @@ let params = {
 //Инициируем корневой блок
 const mainBlock = new CONTAINER(params);
 mainBlock.init();
+mainBlock.startTransition(1);
+
 initUi();
 
 

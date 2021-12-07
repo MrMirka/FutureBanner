@@ -4,10 +4,11 @@ function b2Init(bannerContainer, params, app, textures){
 	app.loader
     .add('rider', 'js/banners/spine/raptor/export/raptor_pro.json')
     .load(onRiderLoader);
-    app.stage.interactive = true;
+    //app.stage.interactive = true;
 
     function onRiderLoader(name, res){
         const rider = new PIXI.spine.Spine(res.rider.spineData);
+        rider.interactive = true;
     
         rider.skeleton.setSkinByName('default');
         rider.skeleton.setSlotsToSetupPose();
@@ -36,17 +37,17 @@ function b2Init(bannerContainer, params, app, textures){
     
     
         //Listners
-        app.stage.on('mouseup', () => {
+        rider.on('mouseup', () => {
             rider.state.setAnimation(0, 'walk', true);
         });
-        app.stage.on('mousedown', () => {
+        rider.on('mousedown', () => {
             rider.state.setAnimation(0, 'roar', true);
         });
     
-        app.stage.on('touchstart', () => {
+        rider.on('touchstart', () => {
             rider.state.setAnimation(0, 'roar', true);
         });
-        app.stage.on('touchend', () => {
+        rider.on('touchend', () => {
             rider.state.setAnimation(0, 'walk', true);
         });
     }

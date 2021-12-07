@@ -19,6 +19,5 @@ class EFFECT {
                 return new PIXI.Filter(undefined, value.f, value.u);    
         };
     };
-
 }
 export {EFFECT};

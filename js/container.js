@@ -1,5 +1,6 @@
 import { BANNER } from './banner.js';
 import { getJSON } from './json_manager.js';
+import { simpleDark } from "../data/effects/simpleDark.js";
 let app;
 let banners; //Массив данных из JSON файла
 let bannerUrl = './data/banners/banners.json'; //Путь к JSON файлу с описанием баннеров
@@ -8,29 +9,43 @@ let textures = []; //Хранилище текстур для всех банн�
 
 let mainBlock; //Корневой контеинер
 
+let parameters; //Общие параметры канваса
+
+let shift = 1; //Значение альфы для перехода между баннерами
+let filter; //Фильтр-шейдр области перехода между баннерами
+let callback; 
+
 
 class CONTAINER {
     constructor (params){
-        this._params = params;
-        currentBanner = this._params.steps[0];
+        parameters = params;
+        currentBanner = parameters.steps[0];
     };
 
     //Инициализация сцены
     init(){
         app = new PIXI.Application({
-            width: this._params.canvasSize.width,
-            height: this._params.canvasSize.height,
+            width: parameters.canvasSize.width,
+            height: parameters.canvasSize.height,
             antialias: true,
             view: document.getElementById('c')
         });
         document.body.appendChild(app.view);
 
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
-        //mainBlock.scale.set(this._params.scaleFactor, this._params.scaleFactor); //Маштабирует изображения при изменении исходного размера контейнере
+        //mainBlock.scale.set(parameters.scaleFactor, parameters.scaleFactor); //Маштабирует изображения при изменении исходного размера контейнере
         
         app.stage.addChild(mainBlock);
 
-        getObjFromJson(this._params); //Забираем данные банеров и отправляем на инициализацию
+        getObjFromJson(parameters); //Забираем данные банеров и отправляем на инициализацию
+        
+        /*
+        let canvas = app.renderer.view;
+     
+        let gl = canvas.getContext('webgl2');
+        console.log(gl.getFragDataLocation());
+        */
+        
     }
 
 
@@ -45,7 +60,10 @@ class CONTAINER {
     //Сменить банер на предыдущий в очереди.
     toLeft(){
         if(banners != undefined) {
-            shiftBanner(-1, this._params);
+           easyIn(function fn(shift){
+               easyOut();
+               shiftBanner(-1);
+           });        
         }
     };
 
@@ -53,19 +71,22 @@ class CONTAINER {
     //Сменить банер напоследующий в очереди.
     toRight(){
         if(banners != undefined) {
-            shiftBanner(1, this._params);
+            easyIn(function fn(shift){
+                easyOut();
+                shiftBanner(1);
+            });    
         }
     };
 
 
     //Возвращает размер canvas.
     getCanvasSize(){
-        return this._params.canvasSize;
+        return parameters.canvasSize;
     };
 
      //Возвращает размер canvas.
      getScreenSize(){
-        return this._params.screenSize;
+        return parameters.screenSize;
     };
 
 
@@ -78,7 +99,21 @@ class CONTAINER {
 
 
     //Запуск эффекта при смене баннера.
-    startTransition(){};
+    startTransition(shift){
+        let value;
+        switch(shift){
+            case 1: 
+                value = simpleDark(parameters);
+                initBgTransition(value);
+                easyOut();
+                break;
+            default:
+                value = simpleDark(parameters);   
+                initBgTransition(value);
+                easyOut();
+                break; 
+        };
+    };
 
 
     //Запускается при изменении размера окна, с последующей перерисовкой баннера.
@@ -163,16 +198,50 @@ function getBannerByPosition(pos) {
 }
 
 
-
 //Сдвиг баннера на позицию влево или вправо
-function shiftBanner(shift, params){
-    let currentInQueue = findBannerInQueue(currentBanner, params);
-    let nextPosition = params.steps[currentInQueue + shift];
+function shiftBanner(shift){
+    let currentInQueue = findBannerInQueue(currentBanner, parameters);
+    let nextPosition = parameters.steps[currentInQueue + shift];
     if(nextPosition != undefined) {
         let banner = getBannerByPosition(nextPosition);
-        playerBanner(banner, params);
+        playerBanner(banner, parameters);
     }
 }
+
+
+
+//Прозрачность от 1 к 0
+function easyOut(){
+    filter.uniforms.shift = shift;
+    shift -= 0.01;
+    if(shift > 0)
+    requestAnimationFrame(easyOut);
+}
+
+
+//Прозрачность от 0 к 1
+ function easyIn(fn){
+    if(callback === undefined) 
+    callback = fn;
+    filter.uniforms.shift = shift;
+    shift += 0.01;
+    if(shift < 1){
+        requestAnimationFrame(easyIn);
+    }else if(shift >= 1) {
+        callback(shift); 
+        callback = undefined; //Обнуление калбека (иначе будет показывать тот же баннер при клике на стрелку)
+    }
+}
+
+function initBgTransition(value){
+    parameters.filter =  new PIXI.Filter(undefined, value.f, value.u);
+    var bg = new PIXI.Sprite();
+    bg.width = parameters.canvasSize.width ;
+    bg.height = parameters.canvasSize.height;
+    bg.filters = [parameters.filter];
+    filter = parameters.filter;
+    app.stage.addChild(bg);
+};
 
 
 export {CONTAINER};
