@@ -13,7 +13,9 @@ let parameters; //Общие параметры канваса
 
 let shift = 1; //Значение альфы для перехода между баннерами
 let filter; //Фильтр-шейдр области перехода между баннерами
-let callback; 
+let callback; //Возвращает значение когда транзишн перехода затемнен
+
+let clickArrow = true; // true - стрелка разблокированна, false - заблокированна
 
 
 class CONTAINER {
@@ -59,22 +61,18 @@ class CONTAINER {
 
     //Сменить банер на предыдущий в очереди.
     toLeft(){
-        if(banners != undefined) {
-           easyIn(function fn(shift){
-               easyOut();
-               shiftBanner(-1);
-           });        
+        console.log(clickArrow);
+        if(banners != undefined & clickArrow) {
+            shiftBanner(-1);
         }
     };
 
 
     //Сменить банер напоследующий в очереди.
     toRight(){
-        if(banners != undefined) {
-            easyIn(function fn(shift){
-                easyOut();
-                shiftBanner(1);
-            });    
+        console.log(clickArrow);
+        if(banners != undefined & clickArrow) {
+            shiftBanner(1);
         }
     };
 
@@ -200,11 +198,21 @@ function getBannerByPosition(pos) {
 
 //Сдвиг баннера на позицию влево или вправо
 function shiftBanner(shift){
+    clickArrow = false;
     let currentInQueue = findBannerInQueue(currentBanner, parameters);
     let nextPosition = parameters.steps[currentInQueue + shift];
     if(nextPosition != undefined) {
         let banner = getBannerByPosition(nextPosition);
-        playerBanner(banner, parameters);
+        easyIn(function fn(shift){
+            easyOut();
+            console.log('set true');
+            clickArrow = true;
+            playerBanner(banner, parameters);
+            
+        });        
+        
+    }else{
+        clickArrow = true;
     }
 }
 
@@ -214,8 +222,8 @@ function shiftBanner(shift){
 function easyOut(){
     filter.uniforms.shift = shift;
     shift -= 0.01;
-    if(shift > 0)
-    requestAnimationFrame(easyOut);
+    if(shift > 0) 
+    requestAnimationFrame(easyOut);  
 }
 
 
@@ -228,6 +236,7 @@ function easyOut(){
     if(shift < 1){
         requestAnimationFrame(easyIn);
     }else if(shift >= 1) {
+        clickArrow = true;
         callback(shift); 
         callback = undefined; //Обнуление калбека (иначе будет показывать тот же баннер при клике на стрелку)
     }
