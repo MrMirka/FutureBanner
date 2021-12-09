@@ -1,7 +1,7 @@
 import { BANNER } from './banner.js';
 import { getJSON } from './json_manager.js';
 import { simpleDark } from "../data/effects/simpleDark.js";
-let app;
+let app; //PIXI
 let banners; //Массив данных из JSON файла
 let bannerUrl = './data/banners/banners.json'; //Путь к JSON файлу с описанием баннеров
 let currentBanner; //По умолчанию стартует первый баннер в очереди
@@ -37,7 +37,6 @@ class CONTAINER {
         document.body.appendChild(app.view);
 
         mainBlock = new PIXI.Container(); //Корневой контейнер, в него помещаем контйнеры и сбаннерами (один баннер - один контейнер)
-        //mainBlock.scale.set(parameters.scaleFactor, parameters.scaleFactor); //Маштабирует изображения при изменении исходного размера контейнере
         
         app.stage.addChild(mainBlock);
 
@@ -62,22 +61,17 @@ class CONTAINER {
 
 
     //Сменить банер на предыдущий в очереди.
-    toLeft(button){
+    toLeft(){
         if(banners != undefined) {
-            if(endTransition) {
-                shiftBanner(-1, button);
-            }
+            shiftBanner(-1); 
         }
     };
 
 
     //Сменить банер напоследующий в очереди.
-    toRight(button){
+    toRight(){
         if(banners != undefined) {
-            if(endTransition) {
-                shiftBanner(1, button);
-            }
-
+            shiftBanner(1);
         }
     };
 
@@ -129,13 +123,17 @@ class CONTAINER {
     };
 
 
-    //Запускается при изменении размера окна, с последующей перерисовкой баннера.
-    update(){};
+    //Запускается при изменении входных параметров.
+    update(data){
+        if(data != undefined || data.steps.length === 0) return console.log(`Can't update base parameters by params`);
+        parameters = data;
+    };
 
 
 
     //Удаление баннера из очереди по 
     deleteBannerById(id){
+        if (id === undefined || id <=0) return console.log(`Can't delete banner. Errror id number '${id}'`);
         let position = findBannerInQueue(id, parameters);
         parameters.steps.splice(position, 1);
     }
@@ -221,7 +219,7 @@ function getBannerByPosition(pos) {
 
 
 //Сдвиг баннера на позицию влево или вправо
-function shiftBanner(shift, button){
+function shiftBanner(shift){
     if(banners === undefined) return;
     let nextPosition;
     let currentInQueue = findBannerInQueue(currentBanner, parameters);
@@ -233,13 +231,9 @@ function shiftBanner(shift, button){
     }
     if(nextPosition != undefined) {
         let banner = getBannerByPosition(nextPosition);
-        if(button != undefined)
-        button.interactive = false;
-        easyIn(function fn(shift){
+        easyIn(function fn(){
             easyOut();
             playerBanner(banner, parameters);  
-            if(button != undefined)
-            button.interactive = true;
         });        
     }
 }
@@ -252,24 +246,28 @@ function easyOut(){
     shift -= 0.01;
     if(shift > 0) {
         requestAnimationFrame(easyOut);
-        endTransition = true; 
+    }else if(shift<=0){
+        shift = 0;
+        return;
     }
 }
 
 
 //Прозрачность от 0 к 1
  function easyIn(fn){
-    endTransition = false; 
-    if(callback === undefined) 
+    if(callback === undefined)
     callback = fn;
     filter.uniforms.shift = shift;
     shift += 0.01;
     if(shift < 1){
         requestAnimationFrame(easyIn);
     }else if(shift >= 1) {
-        callback(shift); 
+        shift = 1;
+        callback(); 
         callback = undefined; //Обнуление калбека (иначе будет показывать тот же баннер при клике на стрелку)
+        return;
     }
+
 }
 
 

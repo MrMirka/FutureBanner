@@ -22,8 +22,8 @@ let right;
 const mainBlock = new CONTAINER(params);
 mainBlock.init();
 mainBlock.startTransition(1); //включает эффект перехода между баннерами
-mainBlock.startAuto(10000); //Включает слайдшоу
-mainBlock.deleteBannerById(1); //Включает слайдшоу
+mainBlock.startAuto(5000); //Включает слайдшоу
+//mainBlock.deleteBannerById(); //Удаляет баннер
 
 initUi();
 
@@ -47,14 +47,14 @@ function initUi(){
     left.beginFill(0xff0000);
     left.drawRect(0, params.canvasSize.height /2 - 50, 50,50);
     left.on("pointerdown", (event) => {
-        mainBlock.toLeft(left);
+        mainBlock.toLeft();
     });
 
     right = new PIXI.Graphics();
     right.interactive = true;
     right.buttonMode = true;
     right.on("pointerdown", (event) => {
-        mainBlock.toRight(right);
+        mainBlock.toRight();
     });
     right.beginFill(0x00ff00);
     right.drawRect(params.canvasSize.width - 50, params.canvasSize.height /2 - 50  , 50,50);
