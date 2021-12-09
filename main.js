@@ -21,8 +21,9 @@ let right;
 //Инициируем корневой блок
 const mainBlock = new CONTAINER(params);
 mainBlock.init();
-mainBlock.startTransition(1);
-mainBlock.startAuto(10000);
+mainBlock.startTransition(1); //включает эффект перехода между баннерами
+mainBlock.startAuto(10000); //Включает слайдшоу
+mainBlock.deleteBannerById(1); //Включает слайдшоу
 
 initUi();
 
