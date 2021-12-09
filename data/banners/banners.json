@@ -43,4 +43,18 @@
     "effect" : 12,
     "transitionType" : 3,
     "animationScale" : 1.5
+},
+{
+    "id" : 3,
+    "type": "spine2",
+    "position" :3,
+    "name" : "banner-3",
+    "caption" : "SpineTest2",
+    "btn": "Жми на 3!",
+    "img" :[
+       
+    ],
+    "effect" : 1,
+    "transitionType" : 2,
+    "animationScale" : 0.5
 }]

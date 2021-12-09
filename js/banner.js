@@ -1,5 +1,6 @@
 import {b1Init} from './banners/girl1/b1.js';
 import {b2Init} from './banners/spine/b2.js';
+import {b3Init} from './banners/spine2/b3.js';
 class BANNER {
     constructor(item, mainBlock, params, app, textures){
         this._item = item;
@@ -22,6 +23,11 @@ class BANNER {
                 b2Init(bannerContainer, this._params, this._app, this._texture);
                 textUpdate(this._item);
                 break;
+            
+            case 3:
+                b3Init(bannerContainer, this._params, this._app, this._texture);
+                textUpdate(this._item);
+                break;    
         };
         
         this._mainBlock.addChild(bannerContainer);

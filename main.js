@@ -1,7 +1,7 @@
 import {CONTAINER} from './js/container.js';
 
 let params = {
-    steps: [1,2], //Порядок баннеров в очереди на отображение
+    steps: [1,2,3], //Порядок баннеров в очереди на отображение
     filter: undefined,
     scaleFactor: (document.getElementById('c').offsetWidth) / 1600, //Коэфициент маштабирования, 1600 - исходное изображения бекграунда в пикселях
     canvasSize: {
@@ -22,7 +22,7 @@ let right;
 const mainBlock = new CONTAINER(params);
 mainBlock.init();
 mainBlock.startTransition(1);
-mainBlock.startAuto(15000);
+mainBlock.startAuto(10000);
 
 initUi();
 
