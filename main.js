@@ -15,11 +15,14 @@ let params = {
     deviceType: getDeviceType()
 };
 
+let right;
+
 
 //Инициируем корневой блок
 const mainBlock = new CONTAINER(params);
 mainBlock.init();
 mainBlock.startTransition(1);
+mainBlock.startAuto(15000);
 
 initUi();
 
@@ -46,7 +49,7 @@ function initUi(){
         mainBlock.toLeft(left);
     });
 
-    const right = new PIXI.Graphics();
+    right = new PIXI.Graphics();
     right.interactive = true;
     right.buttonMode = true;
     right.on("pointerdown", (event) => {

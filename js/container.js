@@ -15,7 +15,9 @@ let shift = 1; //Значение альфы для перехода между 
 let filter; //Фильтр-шейдр области перехода между баннерами
 let callback; //Возвращает значение когда транзишн перехода затемнен
 
-let btnArrow;
+let allData = false; //Флаг указывающий на окончание загрузки баннеров
+
+let endTransition = true; //Указывает на окончание эффекта перехода
 
 
 class CONTAINER {
@@ -62,7 +64,9 @@ class CONTAINER {
     //Сменить банер на предыдущий в очереди.
     toLeft(button){
         if(banners != undefined) {
-            shiftBanner(-1, button);
+            if(endTransition) {
+                shiftBanner(-1, button);
+            }
         }
     };
 
@@ -70,9 +74,22 @@ class CONTAINER {
     //Сменить банер напоследующий в очереди.
     toRight(button){
         if(banners != undefined) {
-            shiftBanner(1, button);
+            if(endTransition) {
+                shiftBanner(1, button);
+            }
+
         }
     };
+
+
+    startAuto(interval){
+        setTimeout(
+            setInterval(()=>{
+                if(!allData) return;
+                shiftBanner(1)
+            }, interval),
+            5000);
+    }
 
 
     //Возвращает размер canvas.
@@ -167,6 +184,7 @@ function loaderTextures(bannerItem, params) {
         for(let i = 0; i < Object.keys(resources).length; i++) {
             let value = Object.values(resources)[i].texture;
             textures.push(value);
+            allData = true;
         }
         playerBanner(getBannerByPosition(currentBanner), params);
     });
@@ -196,6 +214,7 @@ function getBannerByPosition(pos) {
 
 //Сдвиг баннера на позицию влево или вправо
 function shiftBanner(shift, button){
+    if(banners === undefined) return;
     let nextPosition;
     let currentInQueue = findBannerInQueue(currentBanner, parameters);
     let step = currentInQueue + shift;
@@ -206,10 +225,12 @@ function shiftBanner(shift, button){
     }
     if(nextPosition != undefined) {
         let banner = getBannerByPosition(nextPosition);
+        if(button != undefined)
         button.interactive = false;
         easyIn(function fn(shift){
-            easyOut(button);
+            easyOut();
             playerBanner(banner, parameters);  
+            if(button != undefined)
             button.interactive = true;
         });        
     }
@@ -222,13 +243,15 @@ function easyOut(){
     filter.uniforms.shift = shift;
     shift -= 0.01;
     if(shift > 0) {
-        requestAnimationFrame(easyOut);  
+        requestAnimationFrame(easyOut);
+        endTransition = true; 
     }
 }
 
 
 //Прозрачность от 0 к 1
  function easyIn(fn){
+    endTransition = false; 
     if(callback === undefined) 
     callback = fn;
     filter.uniforms.shift = shift;
