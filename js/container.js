@@ -196,8 +196,14 @@ function getBannerByPosition(pos) {
 
 //Сдвиг баннера на позицию влево или вправо
 function shiftBanner(shift, button){
+    let nextPosition;
     let currentInQueue = findBannerInQueue(currentBanner, parameters);
-    let nextPosition = parameters.steps[currentInQueue + shift];
+    let step = currentInQueue + shift;
+    if(step > parameters.steps.length-1) {
+        nextPosition = parameters.steps[0];
+    }else{
+        nextPosition = parameters.steps[step];
+    }
     if(nextPosition != undefined) {
         let banner = getBannerByPosition(nextPosition);
         button.interactive = false;
@@ -213,7 +219,6 @@ function shiftBanner(shift, button){
 
 //Прозрачность от 1 к 0
 function easyOut(){
-    console.log(shift);
     filter.uniforms.shift = shift;
     shift -= 0.01;
     if(shift > 0) {
@@ -224,7 +229,6 @@ function easyOut(){
 
 //Прозрачность от 0 к 1
  function easyIn(fn){
-    console.log(shift);
     if(callback === undefined) 
     callback = fn;
     filter.uniforms.shift = shift;
@@ -237,6 +241,9 @@ function easyOut(){
     }
 }
 
+
+
+//Инициируекм шейдер для эффекта перехода
 function initBgTransition(value){
     parameters.filter =  new PIXI.Filter(undefined, value.f, value.u);
     var bg = new PIXI.Sprite();
